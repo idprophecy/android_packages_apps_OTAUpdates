@@ -19,11 +19,6 @@
     package="com.ota.updates"
     android:versionCode="19"
     android:versionName="@string/app_version" >
-    
-    <uses-sdk
-        android:maxSdkVersion="22"
-        android:minSdkVersion="14"
-        android:targetSdkVersion="22" />
 
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
