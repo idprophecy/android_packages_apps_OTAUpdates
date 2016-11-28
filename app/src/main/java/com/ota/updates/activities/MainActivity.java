@@ -33,6 +33,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -119,66 +120,14 @@ public class MainActivity extends Activity implements Constants{
 			actionBar.setCustomView(actionbarView, layoutParams);
 			actionBar.setDisplayShowCustomEnabled(true);
 		}
-		
-		boolean firstRun = Preferences.getFirstRun(mContext);				
-		if(firstRun) {
-			Preferences.setFirstRun(mContext, false);
-			showWhatsNew();
-		}
-		
-		String oldChangelog = Preferences.getOldChangelog(mContext);
-		String currentChangelog = getResources().getString(R.string.app_version);
-		if(!oldChangelog.equals(currentChangelog)) {
-			showWhatsNew();
-		}
-		
-		// Create download directories if needed
-		File installAfterFlashDir = new File(SD_CARD 
-				+ File.separator
-				+ OTA_DOWNLOAD_DIR
-				+ File.separator
-				+ INSTALL_AFTER_FLASH_DIR);
-		installAfterFlashDir.mkdirs();
 
-		createDialogs();
-
-		// Check the correct build prop values are installed
-		// Also executes the manifest/update check
-		if (!Utils.isConnected(mContext)) {
-			Builder notConnectedDialog = new Builder(mContext);
-			notConnectedDialog.setTitle(R.string.main_not_connected_title)
-			.setMessage(R.string.main_not_connected_message)
-			.setPositiveButton(R.string.ok, new OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					((Activity) mContext).finish();
-				}
-			})
-			.show();
-		} else {
-			new CompatibilityTask(mContext).execute();
+		// In this case we're requesting write permission before anything else.
+		if (!Utils.writePermissionGranted(mContext)) {
+			Utils.requestWritePermission(this);
+			return;
 		}
 
-		// Has the download already completed?
-		Utils.setHasFileDownloaded(mContext);
-
-		// Update the layouts
-		updateDonateLinkLayout();
-		updateAddonsLayout();
-		updateRomInformation();
-		updateRomUpdateLayouts();
-		updateWebsiteLayout();
-		
-		if (Preferences.getAdsEnabled(mContext)) {
-			try {
-				mAdView = (AdView) findViewById(R.id.adView);
-				mAdRequest = new AdRequest.Builder().build();
-				mAdView.loadAd(mAdRequest);
-			} catch(NullPointerException e) {
-				Log.e(TAG, e.getMessage());
-			}
-		}
+		endInitialization();
 	}
 
 	@Override
@@ -230,6 +179,91 @@ public class MainActivity extends Activity implements Constants{
 				return true;
 			}
 			return false;
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+		switch (requestCode) {
+			case WRITE_PERMISSION:
+				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					endInitialization();
+				} else {
+					Builder adb = new Builder(mContext);
+					adb.setCancelable(false)
+							.setTitle(R.string.write_perm_denied_title)
+							.setMessage(R.string.write_perm_denied_message)
+							.setPositiveButton(R.string.ok, new OnClickListener() {
+						@Override
+						public void onClick(DialogInterface di, int which) {
+							Utils.requestWritePermission(MainActivity.this);
+							di.dismiss();
+						}
+					}).show();
+				}
+				break;
+		}
+	}
+
+	private void endInitialization () {
+		boolean firstRun = Preferences.getFirstRun(mContext);
+		if (firstRun) {
+			Preferences.setFirstRun(mContext, false);
+			showWhatsNew();
+		}
+
+		String oldChangelog = Preferences.getOldChangelog(mContext);
+		String currentChangelog = getResources().getString(R.string.app_version);
+		if (!oldChangelog.equals(currentChangelog)) {
+			showWhatsNew();
+		}
+
+		// Create download directories if needed
+		File installAfterFlashDir = new File(SD_CARD
+				+ File.separator
+				+ OTA_DOWNLOAD_DIR
+				+ File.separator
+				+ INSTALL_AFTER_FLASH_DIR);
+		installAfterFlashDir.mkdirs();
+
+		createDialogs();
+
+		// Check the correct build prop values are installed
+		// Also executes the manifest/update check
+		if (!Utils.isConnected(mContext)) {
+			Builder notConnectedDialog = new Builder(mContext);
+			notConnectedDialog.setTitle(R.string.main_not_connected_title)
+					.setMessage(R.string.main_not_connected_message)
+					.setPositiveButton(R.string.ok, new OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							((Activity) mContext).finish();
+						}
+					})
+					.show();
+		} else {
+			new CompatibilityTask(mContext).execute();
+		}
+
+		// Has the download already completed?
+		Utils.setHasFileDownloaded(mContext);
+
+		// Update the layouts
+		updateDonateLinkLayout();
+		updateAddonsLayout();
+		updateRomInformation();
+		updateRomUpdateLayouts();
+		updateWebsiteLayout();
+
+		if (Preferences.getAdsEnabled(mContext)) {
+			try {
+				mAdView = (AdView) findViewById(R.id.adView);
+				mAdRequest = new AdRequest.Builder().build();
+				mAdView.loadAd(mAdRequest);
+			} catch (NullPointerException e) {
+				Log.e(TAG, e.getMessage());
+			}
+		}
 	}
 
 	private void createDialogs() {
