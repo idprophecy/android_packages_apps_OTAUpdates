@@ -92,6 +92,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
 		String soundValue = getPreferenceManager().getSharedPreferences().getString(NOTIFICATIONS_SOUND, defValue);
 		setRingtoneSummary(soundValue);
 
+		// TODO: Fix performance issue with the statement below
 		if (!Tools.isRootAvailable()) {
 			SwitchPreference ors = (SwitchPreference) findPreference("updater_twrp_ors");
 			ors.setEnabled(false);
