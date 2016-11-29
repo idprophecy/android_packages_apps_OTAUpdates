@@ -1,3 +1,8 @@
+#### v2.5.4 (unofficial)
+##### 29th November 2016
+* Added Android 6.0+ runtime permissions support
+* Support for Android version up to 7.1
+
 #### v2.5.3
 ##### 10th August 2015
 * Fixed the Addons page crashing. This only affected RomHut users...  but the fix will affect users who's developers manually host their ROMs. I'm knee deep in the middle of work and a rewrite that will resolve these kinds of issues for good.
