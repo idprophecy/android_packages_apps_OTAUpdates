@@ -17,14 +17,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ota.updates"
-    android:versionCode="19"
+    android:versionCode="20"
     android:versionName="@string/app_version"
     android:sharedUserId="android.uid.system" >
 
     <uses-sdk
-        android:maxSdkVersion="22"
+        android:maxSdkVersion="25"
         android:minSdkVersion="14"
-        android:targetSdkVersion="22" />
+        android:targetSdkVersion="25" />
 
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
