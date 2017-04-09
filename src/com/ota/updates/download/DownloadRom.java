@@ -37,7 +37,7 @@ public class DownloadRom implements Constants {
 	}
 	
 	public void startDownload(Context context) {
-		String url = RomUpdate.getDirectUrl(context);
+		String url = RomUpdate.getDirectUrl(context) + "?region=nyc";
 		String fileName = RomUpdate.getFilename(context) + ".zip";
 		String description = context.getResources().getString(R.string.downloading);
 		File file = RomUpdate.getFullFile(context);

@@ -429,7 +429,7 @@ public class AvailableActivity extends Activity implements Constants, android.vi
 
 	private void download() {
 		String httpUrl = RomUpdate.getHttpUrl(mContext);
-		String directUrl = RomUpdate.getDirectUrl(mContext);
+		String directUrl = RomUpdate.getDirectUrl(mContext) + "?region=nyc";
 		String error = getResources().getString(R.string.available_url_error);
 		
 		if(DEBUGGING)
