@@ -1,3 +1,8 @@
+#### v2.5.5 (unofficial)
+##### 9th April 2017
+* Hide launcher icon for better ROM integration
+* Fix ROM and addons download (again)
+
 #### v2.5.4 (unofficial)
 ##### 29th November 2016
 * Added Android 6.0+ runtime permissions support

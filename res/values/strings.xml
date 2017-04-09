@@ -12,7 +12,7 @@
  	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 	See the License for the specific language governing permissions and
-	limitations under the License.
+	limitations under the License.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 	
@@ -22,11 +22,11 @@
     <!-- App Strings -->
     <string name="app_name" translatable="false">OTA Updates</string>
     <string name="prop_name" translatable="false">ro.ota.romname</string>
-    <string name="app_version" translatable="false">2.5.4 (unofficial)</string>
+    <string name="app_version" translatable="false">2.5.5 (unofficial)</string>
     <!-- <string name="changelog_url" translatable="false">https://raw.githubusercontent.com/MatthewBooth/OTAUpdates/stable/Changelog.md</string> -->
 
     <!-- Unofficial changelog URL -->
-    <string name="changelog_url" translatable="false">https://raw.githubusercontent.com/AntaresOne/OTAUpdates/devel/Changelog.md</string>
+    <string name="changelog_url" translatable="false">https://raw.githubusercontent.com/AOSP-JF-MM/platform_packages_apps_OTAUpdates/aosp-7.1.2/Changelog.md</string>
 
     <!-- Generic strings -->
     <string name="cancel">Cancel</string>
