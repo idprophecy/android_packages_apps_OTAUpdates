@@ -26,7 +26,7 @@ public class Addon {
 	}
 	
 	public void setDownloadLink(String input) {
-		mDownloadLink = input;		
+		mDownloadLink = (input + "?region=nyc");
 	}
 
 	public void setId(int input) {
