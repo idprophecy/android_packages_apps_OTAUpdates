@@ -27,7 +27,7 @@ LOCAL_RESOURCE_DIR := $(addprefix $(LOCAL_PATH)/, res) \
 
 LOCAL_AAPT_FLAGS := \
 	--auto-add-overlay \
-	--extra-packages android.support.v7.cardview
+	--extra-packages android.support.v7.cardview 
 
 LOCAL_PACKAGE_NAME := OTAUpdates
 
