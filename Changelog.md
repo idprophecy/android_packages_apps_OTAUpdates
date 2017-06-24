@@ -1,3 +1,7 @@
+#### v2.5.6 (unofficial)
+##### 24th June 2017
+* Bring back launcher icon (for compatibility with other ROMs)
+
 #### v2.5.5 (unofficial)
 ##### 9th April 2017
 * Hide launcher icon for better ROM integration
